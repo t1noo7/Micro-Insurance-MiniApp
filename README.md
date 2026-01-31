@@ -40,8 +40,12 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 ## Tech Stack
 - Frontend: Next.js (React, Tailwind)
-- Backend: Node.js API
-- Database: MongoDB Atlas
+- Backend: NestJS
+- Database: PostgreSQL + Prisma ORM (hosted on Supabase)
+- Auth: JWT, OAuth (Google) via Supabase
+- Custom JWT issuance on backend (NestJS)
+- Role-based access control
+- Infrastructure: AWS EC2, S3
 - Platform: Zalo Mini App (planned)
 
 ## Dev
