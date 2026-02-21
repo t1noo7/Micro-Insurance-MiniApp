@@ -1,4 +1,9 @@
-import { PrismaClient, User as PrismaUser } from '@prisma/client';
+import {
+  PrismaClient,
+  User as PrismaUser,
+  AuthProvider as PrismaAuthProvider,
+  UserRole as PrismaUserRole,
+} from '@prisma/client';
 import { IUserRepository } from '@/domain/user/user.repository';
 import { User } from '@/domain/user/user.entity';
 import { AuthProvider, UserRole } from '@/domain/user/user.types';
@@ -24,9 +29,9 @@ export class PrismaUserRepository implements IUserRepository {
         passwordHash: user.passwordHash,
         fullName: user.fullName,
         avatarUrl: user.avatarUrl,
-        provider: user.provider,
+        provider: user.provider as PrismaAuthProvider,
         providerId: user.providerId,
-        role: user.role,
+        role: user.role as PrismaUserRole,
         isActive: user.isActive,
       },
     });

@@ -81,8 +81,5 @@
   },
   "prisma": {
     "schema": "src/infrastructure/database/prisma/schema.prisma"
-  },
-  "lint-staged": {
-  "*.{ts,js}": ["scripts/lint-staged.sh"]
   }
 }
