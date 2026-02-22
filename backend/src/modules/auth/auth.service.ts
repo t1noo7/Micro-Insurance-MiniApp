@@ -12,10 +12,11 @@ export class AuthService {
     try {
       return this.loginWithEmailUseCase.execute(email, password);
     } catch (e) {
-      if (e.message === 'AUTH_INVALID_CREDENTIALS') {
+      const err = e as Error;
+      if (err.message === 'AUTH_INVALID_CREDENTIALS') {
         throw new UnauthorizedException();
       }
-      if (e.message === 'AUTH_USER_INACTIVE') {
+      if (err.message === 'AUTH_USER_INACTIVE') {
         throw new ForbiddenException();
       }
       throw e;

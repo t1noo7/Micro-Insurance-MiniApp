@@ -1,6 +1,6 @@
 import { JwtService } from '@nestjs/jwt';
-import { ITokenService } from '@application/auth/ports/token-service.port';
-import { User } from '@domain/user/user.entity';
+import { ITokenService } from '@/application/auth/ports/token-service.port';
+import { User } from '@/domain/user/user.entity';
 
 export class JwtTokenService implements ITokenService {
   constructor(private readonly jwtService: JwtService) {}
