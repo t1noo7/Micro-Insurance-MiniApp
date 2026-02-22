@@ -16,3 +16,18 @@ yarn-error.log*
 
 # OS
 .DS_Store
+
+# ===== Local tooling =====
+.husky/
+
+# ===== Lint / format (local only) =====
+**/eslint.config.*
+**/.eslintrc.*
+**/.prettierrc*
+**/prettier.config.*
+**/tsconfig.eslint.json
+backend/eslint.config.mjs
+backend/tsconfig.json
+
+# ===== Editor =====
+.vscode/
