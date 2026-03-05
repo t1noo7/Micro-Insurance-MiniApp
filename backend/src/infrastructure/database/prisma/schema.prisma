@@ -10,26 +10,57 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id            String   @id @default(uuid())
-  
+
   email         String   @unique
-  passwordHash  String?  // null nếu login bằng OAuth
+  passwordHash  String?  // null nếu chưa set password
   fullName      String?
   avatarUrl     String?
-
-  provider      AuthProvider @default(LOCAL)
-  providerId    String?       // Google user id, etc.
 
   role          UserRole @default(USER)
   isActive      Boolean  @default(true)
 
+  tokenVersion  Int      @default(0)
+
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  refreshTokens RefreshToken[]
+  providers     UserProvider[]
+
   @@map("users")
+}
+
+model RefreshToken {
+  id          String   @id @default(uuid())
+  userId      String
+  tokenHash   String
+  device      String?
+  ip          String?
+  userAgent   String?
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+  revokedAt   DateTime?
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+}
+
+model UserProvider {
+  id          String @id @default(uuid())
+  userId      String
+  provider    AuthProvider
+  providerId  String
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@unique([provider, providerId])
+  @@index([userId])
 }
 
 enum UserRole {
@@ -40,4 +71,6 @@ enum UserRole {
 enum AuthProvider {
   LOCAL
   GOOGLE
+  FACEBOOK
+  GITHUB
 }

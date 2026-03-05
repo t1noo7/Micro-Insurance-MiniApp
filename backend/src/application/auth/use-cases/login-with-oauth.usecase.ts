@@ -2,7 +2,7 @@ import { IUserRepository } from '@/domain/user/user.repository';
 import { IOAuthTokenVerifier } from '@/application/auth//ports/oath-token-verifier.port';
 import { ITokenService } from '@/application/auth/ports/token-service.port';
 import { User } from '@/domain/user/user.entity';
-import { AuthProvider, UserRole } from '@/domain/user/user.types';
+import { UserRole } from '@/domain/user/user.types';
 import { AuthError } from '@/application/common/errors/auth.errors';
 
 export class LoginWithOAuthUseCase {
@@ -23,10 +23,9 @@ export class LoginWithOAuthUseCase {
         null,
         payload.fullName ?? null,
         payload.avatarUrl ?? null,
-        payload.provider as AuthProvider,
-        payload.providerId,
         UserRole.USER,
         true,
+        0,
         new Date(),
         new Date(),
       );

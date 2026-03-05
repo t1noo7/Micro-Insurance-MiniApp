@@ -37,8 +37,8 @@ export class SupabaseOAuthVerifier implements IOAuthTokenVerifier {
 
     return {
       provider,
-      providerId: supabasePayload.sub!,
-      email: supabasePayload.email!,
+      providerId: supabasePayload.sub,
+      email: supabasePayload.email,
       fullName: supabasePayload.user_metadata?.full_name,
       avatarUrl: supabasePayload.user_metadata?.avatar_url,
     };

@@ -3,10 +3,12 @@ import { IPasswordHasher } from '@/application/auth/ports/password-hasher.port';
 
 export class BcryptPasswordHasher implements IPasswordHasher {
   async hash(plain: string): Promise<string> {
-    return bcrypt.hash(plain, 10);
+    const hashed = await bcrypt.hash(plain, 10);
+    return hashed;
   }
 
   async compare(plain: string, hash: string): Promise<boolean> {
-    return bcrypt.compare(plain, hash);
+    const isMatch = await bcrypt.compare(plain, hash);
+    return isMatch;
   }
 }

@@ -1,4 +1,4 @@
-import { AuthProvider, UserRole } from './user.types';
+import { UserRole } from './user.types';
 
 export class User {
   constructor(
@@ -7,10 +7,9 @@ export class User {
     public passwordHash: string | null,
     public fullName: string | null,
     public avatarUrl: string | null,
-    public provider: AuthProvider,
-    public providerId: string | null,
     public role: UserRole,
     public isActive: boolean,
+    public tokenVersion: number,
     public readonly createdAt: Date,
     public readonly updatedAt: Date,
   ) {}

@@ -1,15 +1,13 @@
-import {
-  PrismaClient,
-  User as PrismaUser,
-  AuthProvider as PrismaAuthProvider,
-  UserRole as PrismaUserRole,
-} from '@prisma/client';
+import { User as PrismaUser, UserRole as PrismaUserRole } from '@prisma/client';
 import { IUserRepository } from '@/domain/user/user.repository';
 import { User } from '@/domain/user/user.entity';
-import { AuthProvider, UserRole } from '@/domain/user/user.types';
+import { UserRole } from '@/domain/user/user.types';
+import { PrismaService } from '../prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaUserRepository implements IUserRepository {
-  constructor(private readonly prisma: PrismaClient) {}
+  constructor(private readonly prisma: PrismaService) {}
 
   async findById(id: string): Promise<User | null> {
     const record = await this.prisma.user.findUnique({ where: { id } });
@@ -29,10 +27,9 @@ export class PrismaUserRepository implements IUserRepository {
         passwordHash: user.passwordHash,
         fullName: user.fullName,
         avatarUrl: user.avatarUrl,
-        provider: user.provider as PrismaAuthProvider,
-        providerId: user.providerId,
         role: user.role as PrismaUserRole,
         isActive: user.isActive,
+        tokenVersion: user.tokenVersion,
       },
     });
     return this.toDomain(record);
@@ -45,10 +42,9 @@ export class PrismaUserRepository implements IUserRepository {
       record.passwordHash,
       record.fullName,
       record.avatarUrl,
-      record.provider as AuthProvider,
-      record.providerId,
       record.role as UserRole,
       record.isActive,
+      record.tokenVersion,
       record.createdAt,
       record.updatedAt,
     );
